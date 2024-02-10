@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme')
 const { fontFamily } = require("tailwindcss/defaultTheme");
 
 module.exports = {
@@ -21,7 +22,7 @@ module.exports = {
         }
       },
       fontFamily: {
-        sans: ['var(--font-inconsolata)', ...fontFamily.sans],
+        sans: ['var(--font-inter)'],
       }
     },
   },
