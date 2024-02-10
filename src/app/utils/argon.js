@@ -1,25 +1,13 @@
 const argon2 = require('argon2'); // import argon2
 
-export function comparePassword(credentials, callback) {
-    this.db.findOne({username: credentials.username}).exec((err, user) => {
-     if (err) {
-      return callback(null, err);
-     }
-  
-     // Username not found.
-     if (user == null) {
-      return callback(null, user);
-     }
-  
-     argon2
-      .verify(user.password, credentials.password)
-      .then(argon2Match => {
-       if (argon2Match) {
-        return callback(argon2Match, user.isAdmin);
-       }
-  
-       callback(null, argon2Match, false);
-      })
-      .catch(error => callback(null, error));
-    });
-   }
+export default async function comparePassword(credentials) {
+       try {
+      if (await argon2.verify(query.password, credentials.password)) {
+        console.log('ok');
+      } else {
+        console.log('not ok');
+      }
+    } catch (err) {
+      console.log('Error: ', err);
+    }
+  }
