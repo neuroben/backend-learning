@@ -26,6 +26,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-inter)'],
+        'inconsolata': ['Inconsolata', 'monospace'],
       }
     },
   },
