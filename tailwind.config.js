@@ -13,6 +13,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'custom': '0 0 10px 0 rgba(0, 0, 0, 0.1)',
+      },
       colors: {
         szin:{
           dark: "#1F1300",

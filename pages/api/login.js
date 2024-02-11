@@ -4,12 +4,14 @@ const argon2 = require('argon2'); // import argon2
 
 
 export default async function login(req, res) {
-    const credentials = req.body;
-
     if (req.method === 'POST') {
+        const credentials = req.body;
         let query;
+        let what = credentials.email.includes('@') ? 'email' : 'username';
         try {
-            query = await pool.query('SELECT * FROM users WHERE email = $1', [credentials.email]);
+            what === 'email' ? 
+            query = await pool.query('SELECT * FROM users WHERE email = $1', [credentials.email]) : 
+            query = await pool.query('SELECT * FROM users WHERE username = $1', [credentials.email]);
             if (query.rows.length === 0) {
                 return res.status(401).json({ message: 'Invalid email' });
             }
@@ -28,5 +30,9 @@ export default async function login(req, res) {
             return res.status(500).json({ message: 'Internal server error' });
         }
     }
+    else {
+        return res.status(405).json({ message: 'Method not allowed' });
+    }
 }
+
 
