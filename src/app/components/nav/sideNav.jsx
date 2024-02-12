@@ -1,33 +1,56 @@
 import * as React from 'react';
-import { List, ListItemButton, ListItemText, Box, ThemeProvider } from '@mui/material';
-import navTheme from './navTheme';
-import { Typography } from '@mui/material';
-import Link from 'next/link';
+import { List, ListItemButton, ListItemText, Box, ThemeProvider, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import navTheme from './navTheme';
+import Link from 'next/link';
 
 
 
 const MenuItem = ({ text, link }) => {
     const router = useRouter();
     const isActive = router.pathname === link;
+    const submenuItems = ['New post', 'Edit posts', 'Profile', 'Contact'];
+    const menuLinks00 = ['/newpost', '/editposts', '/profile', '/contact'];
+
+    const SubMenuItem = ({ text, link }) => {
+
+        const router = useRouter();
+        const isActive = router.pathname === link;
+
+
+        return (
+            <Link href={link}>
+                <ListItemButton sx={{ backgroundColor: '#040506', marginLeft: "25px" }}>
+                    <ListItemText primary={text} />
+                </ListItemButton>
+            </Link>
+        );
+    };
+
 
     return (
-        <Link href={link}>
-            <ListItemButton sx={{ backgroundColor: isActive ? '#262f38' : 'transparent' }}>
-                <ListItemText primary={text} />
-            </ListItemButton>
-        </Link>
+        <div>
+            <Link href={link}>
+                <ListItemButton sx={{ borderLeft: isActive ? '1px solid #479dff' : '1px solid #262f38' }}>
+                    <ListItemText primary={text} />
+                </ListItemButton>
+            </Link>
+            {isActive && submenuItems.map((text, index) => (
+                <SubMenuItem key={index} text={text} link={menuLinks00[index]} />
+            ))}
+        </div>
     );
 };
 
 const SideNav = () => {
-    const menuItems = ['New post', 'Edit posts', 'Services', 'Contact'];
-    const menuLinks = ['/newpost', '/editposts', '/services', '/contact'];
+    const menuItems = ['New post', 'Edit posts', 'Profile', 'Contact'];
+    const menuLinks = ['/newpost', '/editposts', '/profile', '/contact'];
 
     return (
         <Box
             sx={{
-                width: 240,
+                position: 'fixed',
+                width: 600,
                 height: '100vh',
                 left: 0,
                 top: 0,
