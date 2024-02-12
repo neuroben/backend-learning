@@ -7,7 +7,15 @@ import { useState, useEffect } from 'react';
 export default function Page() {
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState('');
-  if (!router.isReady) {
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    if (router.isReady) {
+      setIsReady(true);
+    }
+  }, [router.isReady]);
+
+  if (!isReady) {
     return null;  // or return a loading spinner
   }
 

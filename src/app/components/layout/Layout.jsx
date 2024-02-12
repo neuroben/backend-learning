@@ -1,16 +1,17 @@
-import { Box } from '@mui/material';
-import SideNav from '../nav/sideNav';
+import { useMediaQuery, Box } from '@mui/material';
+
 
 const Layout = ({ children, bgcolor = '#050708' }) => {
+    const matches = useMediaQuery('(max-width:600px)');
     return (
-        <Box sx={{ display: 'flex' }}>
-            <SideNav />
-            <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', marginTop:'10vh', marginBottom:'10vh' }}>
-                <Box sx={{width: '150vh', bgcolor: bgcolor}}>
+
+            
+            <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', marginTop:'10vh', marginLeft: '600px', marginBottom:'10vh' }}>
+                <Box sx={{width: '75vh', bgcolor: bgcolor}}>
                     {children}
                 </Box>
             </Box>
-        </Box>
+        
     );
 };
 

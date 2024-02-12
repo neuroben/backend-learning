@@ -7,10 +7,13 @@ import dynamic from 'next/dynamic';
 import Layout from '@/app/components/layout/Layout';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./AddPost.css";
+import { Grid } from '@mui/material';
+import Box from '@mui/material/Box';
+import SideNav from '@/app/components/nav/sideNav';
 
 const Editor = dynamic(
-  () => import('react-draft-wysiwyg').then(module => module.Editor),
-  { ssr: false }
+    () => import('react-draft-wysiwyg').then(module => module.Editor),
+    { ssr: false }
 );
 
 function AddPost() {
@@ -25,15 +28,24 @@ function AddPost() {
     };
 
     return (
-        <Layout>
-            <Editor
-                editorState={editorState}
-                toolbarClassName="toolbarClassName"
-                wrapperClassName="wrapperClassName"
-                editorClassName="editorClassName"
-                onEditorStateChange={handleEditorChange}
-            />
-        </Layout>
+        <>
+        <SideNav />
+        <Grid sx={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)'}}>
+            <Box><h1>Valami</h1></Box>
+            <Box>
+                <Layout>
+                    <Editor
+                        editorState={editorState}
+                        toolbarClassName="toolbarClassName"
+                        wrapperClassName="wrapperClassName"
+                        editorClassName="editorClassName"
+                        onEditorStateChange={handleEditorChange}
+                    />
+                </Layout>
+            </Box>
+            <Box></Box>
+        </Grid>
+        </>
     );
 }
 
