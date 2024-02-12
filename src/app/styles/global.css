@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Inconsolata', sans-serif !important;
+    background-color: #101418;
+}

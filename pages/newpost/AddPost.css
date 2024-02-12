@@ -1,0 +1,39 @@
+.editorClassName {
+    max-height: 74.5vh; /* or any other value that fits your needs */
+    overflow-y: auto;
+    color: #fff;
+}
+
+.editorClassName h1 {
+    font-size: 2em;
+    line-height: 0.8;
+    margin: 0 !important;
+}
+
+.editorClassName h2 {
+    font-size: 1.5em;
+    line-height: 0.8;
+}
+
+.editorClassName h3 {
+    font-size: 1.17em;
+    line-height: 0.8;
+}
+
+.editorClassName h4 {
+    font-size: 1em;
+    line-height: 0.8;
+}
+
+.editorClassName h5 {
+    font-size: 0.83em;
+    line-height: 0.8;
+}
+
+.editorClassName h6 {
+    font-size: 0.67em;
+    line-height: 0.8;
+}
+.editorClassName p {
+    line-height: 0.8;
+}
