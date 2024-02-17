@@ -1,3 +1,11 @@
+As of today 2024-20-18
+![image](https://github.com/neuroben/backend-learning/assets/78758122/1428b3a5-cd26-4cf0-b842-424bf3aad559)
+![image](https://github.com/neuroben/backend-learning/assets/78758122/0f4e53cd-b72d-41d4-bb90-b4c5c3eb3182)
+![image](https://github.com/neuroben/backend-learning/assets/78758122/18888864-1257-4fb9-861f-afe1290edf00)
+
+
+
+
 # backend-learning
 
 ## 2024-FEB-08
