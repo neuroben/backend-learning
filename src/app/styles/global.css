@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 body {
-    font-family: 'Inconsolata', sans-serif !important;
-    background-color: #101418;
-}
+    background-image: url("bg-gradient.png");
+    background-color: #cccccc;
+   }

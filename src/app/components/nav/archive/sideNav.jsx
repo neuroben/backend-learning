@@ -9,34 +9,27 @@ import Link from 'next/link';
 const MenuItem = ({ text, link }) => {
     const router = useRouter();
     const isActive = router.pathname === link;
-    const submenuItems = ['New post', 'Edit posts', 'Profile', 'Contact'];
-    const menuLinks00 = ['/newpost', '/editposts', '/profile', '/contact'];
 
-    const SubMenuItem = ({ text, link }) => {
+    const [open, setOpen] = React.useState(false);
 
-        const router = useRouter();
-        const isActive = router.pathname === link;
+    function handleToggle() {
+        setOpen(!open);
+    }
 
-
-        return (
-            <Link href={link}>
-                <ListItemButton sx={{ backgroundColor: '#040506', marginLeft: "25px" }}>
-                    <ListItemText primary={text} />
-                </ListItemButton>
-            </Link>
-        );
-    };
-
+    const subMenuItems = ['Save post', 'Preview post'];
+    const subMenuActions = ['/save', '/preview'];
 
     return (
         <div>
             <Link href={link}>
-                <ListItemButton sx={{ borderLeft: isActive ? '1px solid #479dff' : '1px solid #262f38' }}>
+                <ListItemButton onClick={handleToggle} sx={{ borderLeft: isActive ? '1px solid #479dff' : '1px solid #262f38' }}>
                     <ListItemText primary={text} />
                 </ListItemButton>
             </Link>
-            {isActive && submenuItems.map((text, index) => (
-                <SubMenuItem key={index} text={text} link={menuLinks00[index]} />
+            {open && subMenuItems.map((item) => (
+                <Box sx={{ marginLeft: '15px' }} key={item}>
+                    <MenuItem text={item} link={subMenuActions[subMenuItems.indexOf(item)]} />
+                </Box>
             ))}
         </div>
     );
@@ -49,7 +42,6 @@ const SideNav = () => {
     return (
         <Box
             sx={{
-                position: 'fixed',
                 width: 600,
                 height: '100vh',
                 left: 0,

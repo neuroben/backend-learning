@@ -1,20 +1,19 @@
 import * as React from 'react';
-import Head from 'next/head';
-import '../src/app/styles/global.css';
+import { Grid, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import { ThemeProvider } from '@mui/material/styles';
+import fonts from '@/app/utils/fonts';
+import Image from 'next/image';
 import Layout from '@/app/components/layout/Layout';
-
+import BlogPostBigCard from '../src/app/components/blogPostCards/BlogPostBigCard';
 
 function LandingPage() {
     return (
-        <>
-            <Head>
-                <title>admin</title>
-            </Head>
-            
-            <Layout>
-            {/* Your page content goes here */}
-            </Layout>
-        </>
+        <Layout>
+            <BlogPostBigCard></BlogPostBigCard>
+            <BlogPostBigCard></BlogPostBigCard>
+            <BlogPostBigCard></BlogPostBigCard>
+        </Layout>
     );
 }
 

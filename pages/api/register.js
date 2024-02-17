@@ -18,12 +18,11 @@ export default async function register(req, res) {
             queryUsername = await pool.query('SELECT username FROM users WHERE username = $1', [credentials.username]);
             if (queryEmail.rows.length === 0 && queryUsername.rows.length === 0) {
                 try {
-                    console.log(`Email: ${credentials.email}`);
-                    console.log(`Password: ${credentials.password}`);
-                    update = await pool.query('INSERT INTO users (email, username, password, created_on, role) VALUES ($1, $2, $3, now(), user)', [credentials.email, credentials.username, await argon2.hash(credentials.password)]);
+                    update = await pool.query('INSERT INTO users (id, email, username, password, created_on, role, login_count, comment_count) VALUES (uuid_generate_v4(), $1, $2, $3, now(), $4, 0, 0)', [credentials.email, credentials.username, await argon2.hash(credentials.password), 'admin']);
                 } catch (error) {
                     console.error('Error executing query', error.stack);
                     return res.status(500).json({ message: 'Internal server error' });
+
                 }
                 return res.status(200).json({ message: 'ok' });
             }

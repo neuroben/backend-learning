@@ -4,36 +4,30 @@ import pool from '../../src/app/utils/database'
 const argon2 = require('argon2'); // import argon2
 
 
-export default async function login(req, res) {
-    if (req.method === 'POST') {
-        const credentials = req.body;
+export default async function accunts(req, res) {
+    if (req.method === 'GET') {
+        const token = req.body;
         let query;
-        let what = credentials.email.includes('@') ? 'email' : 'username';
+        //let what = credentials.email.includes('@') ? 'email' : 'username';
         try {
-            what === 'email' ?
-                query = await pool.query('SELECT * FROM users WHERE email = $1', [credentials.email]) :
-                query = await pool.query('SELECT * FROM users WHERE username = $1', [credentials.email]);
+            //what === 'email' ? 
+            //query = await pool.query('SELECT * FROM users WHERE email = $1', [credentials.email]) : 
+            //query = await pool.query('SELECT * FROM users WHERE username = $1', [credentials.email]);
             if (query.rows.length === 0) {
                 return res.status(401).json({ message: 'Invalid email' });
             }
             else {
                 const user = query.rows[0];
                 if (await argon2.verify(user.password, credentials.password)) {
-                    const token = jwt.sign({ id: user.id }, process.env.NEXT_PUBLIC_JWT_SECRET, {
-                        expiresIn: '1d'
+                    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+
                     });
-
-                    await pool.query('UPDATE users SET login_count = login_count + 1 WHERE id = $1', [user.id]);
-
                     return res.status(200).json({
-                        message: 'Success',
-                        token: token
+
                     });
                 }
                 else {
                     return res.status(401).json({ message: 'Invalid password' });
-                    //itt lehet a többszöri probálkozásokat számolni
-
                 }
             }
         }
@@ -46,4 +40,7 @@ export default async function login(req, res) {
         return res.status(405).json({ message: 'Method not allowed' });
     }
 }
+
+app.get()
+
 

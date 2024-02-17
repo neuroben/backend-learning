@@ -1,0 +1,18 @@
+    const SubMenuItem = ({ text, link }) => {
+
+        const router = useRouter();
+        const isActive = router.pathname === link;
+
+
+        return (
+            <Link href={link}>
+                <ListItemButton sx={{ backgroundColor: '#040506', marginLeft: "25px" }}>
+                    <ListItemText primary={text} />
+                </ListItemButton>
+            </Link>
+        );
+    };
+
+                {isActive && submenuItems.map((text, index) => (
+                <SubMenuItem key={index} text={text} link={menuLinks00[index]} />
+            ))}

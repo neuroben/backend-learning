@@ -7,17 +7,18 @@ import CssBaseline from '@mui/material/CssBaseline';
 function MyApp({ Component, pageProps }) {
     return (
         <>
-            <React.Fragment>
+            <React.Fragment >
                 <CssBaseline />
                 <Head>
-                    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet" />
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-                    <meta name="viewport" content="initial-scale=1, width=device-width" />
+                    <link rel="preconnect" href="https://fonts.googleapis.com" />
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+                    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
                 </Head>
                 <Component {...pageProps} />
             </React.Fragment>
         </>
     );
+    //<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet" />
 }
 
-export default MyApp;
+                    export default MyApp;
