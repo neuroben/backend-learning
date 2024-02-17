@@ -11,7 +11,7 @@ import LoginForm from '../../a_login/login';
 import PostsByMonth from '../../../src/app/components/sideContent/postsByMonth';
 import AdminMenu from './AdminMenu';
 
-function AdminLayout() {
+function AdminLayout({ children }) {
 
 
     return (
@@ -21,13 +21,9 @@ function AdminLayout() {
                     <AdminMenu />
                 </Box>
                 <Box sx={{ flexGrow: 1, minWidth: '200px', overflow: 'auto' }}>
-                    <Typography variant="h1">dasdasdasdasdasdasdasdsadsas p</Typography>
-                    dasdasdasdasdasdasdasd
-                    sads
-                    <address>asd
-                        asd
-                    </address>
+                    {children}
                 </Box>
+
             </Box>
         </ThemeProvider>
     );

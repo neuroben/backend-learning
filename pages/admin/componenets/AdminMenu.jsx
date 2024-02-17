@@ -12,12 +12,17 @@ import adminNavTheme from './theme';
 import { ThemeProvider } from 'styled-components';
 import Link from 'next/link';
 import Button from '@mui/material/Button';
+import { useRouter } from 'next/router';
+
 
 const username = 'Anita';
-
 const svgS = ['./logout.svg', './password.svg', './earth.svg', './profile.svg']
 
 function AdminMenu() {
+    const router = useRouter();
+
+    let activePath = router.pathname;
+
     return (
         <Box sx={{
             fontFamily: 'Inconsolata',
@@ -111,7 +116,9 @@ function AdminMenu() {
                         }}
                     >
                         <DashboardIcon />
-                        <Typography sx={{ marginLeft: '20px' }}>{`Kezelőfelület`}</Typography>
+                        <Typography sx={{ marginLeft: '20px' }}>
+                            {`Kezelőfelület`}
+                        </Typography>
                     </Grid>
                     <Grid item
                         sx={{
@@ -121,20 +128,116 @@ function AdminMenu() {
                             alignItems: 'center',
                             justifyContent: 'flex-start',
                             padding: '20px',
+
                             cursor: 'pointer',
+                            backgroundColor: activePath.includes('content') ? '#22252e' : '',
+                            paddingBottom: activePath.includes('content') ? '0px' : '',
                             '&:hover': {
                                 backgroundColor: '#22252e',
                                 color: '#7d89ac'
                             }
                         }}
                         onClick={() => {
-                            window.location.href = '/admin/content';
+                            router.push('/admin/content/posts');
                         }}
+
                     >
                         <BookIcon />
                         <Typography sx={{ marginLeft: '20px' }}>{`Tartalmak`}</Typography>
                     </Grid>
-                    <Grid item sx={{ textAlign: 'center' }}>{`${username} ~ Foltsarok`}</Grid>
+                    {activePath.includes('content') &&
+                        <Grid container>
+                            <Grid item
+                                sx={{
+                                    borderBottom: '1px solid #22252e',
+                                    width: '100%', // to ensure full width border line
+                                    display: 'flex',
+                                    margin: 0,
+                                    alignItems: 'center',
+                                    justifyContent: 'flex-start',
+                                    padding: '15px 10px 0px 50px',
+                                    cursor: 'pointer',
+                                    backgroundColor: '#22252e',
+                                    color: activePath.includes('/posts') ? '#7d89ac' : '',
+                                    '&:hover': {
+                                        color: '#7d89ac'
+                                    }
+                                }}
+                                onClick={() => {
+                                    window.location.href = '/admin/content/posts';
+                                }}
+                            >
+                                <Typography component="div" sx={{ marginLeft: '20px' }}><ul style={{ listStyleType: 'disc' }}><li style={{ paddingLeft: '10px' }}>{`Posztok`}</li></ul></Typography>
+                            </Grid>
+                            <Grid item
+                                sx={{
+                                    borderBottom: '1px solid #22252e',
+                                    margin: 0,
+                                    width: '100%', // to ensure full width border line
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'flex-start',
+                                    padding: '0px 10px 0px 50px',
+                                    cursor: 'pointer',
+                                    backgroundColor: '#22252e',
+                                    color: activePath.includes('/comments') ? '#7d89ac' : '',
+                                    '&:hover': {
+                                        color: '#7d89ac'
+                                    }
+                                }}
+                                onClick={() => {
+                                    window.location.href = '/admin/content/comments';
+                                }}
+                            >
+                                <Typography component="div" sx={{ marginLeft: '20px' }}><ul style={{ listStyleType: 'disc' }}><li style={{ paddingLeft: '10px' }}>{`Kommentek`}</li></ul></Typography>
+                            </Grid>
+                            <Grid item
+                                sx={{
+                                    borderBottom: '1px solid #22252e',
+                                    width: '100%', // to ensure full width border line
+                                    display: 'flex',
+                                    margin: 0,
+                                    alignItems: 'center',
+                                    justifyContent: 'flex-start',
+                                    padding: '0px 10px 0px 50px',
+                                    cursor: 'pointer',
+                                    backgroundColor: '#22252e',
+                                    color: activePath.includes('/pages') ? '#7d89ac' : '',
+                                    '&:hover': {
+                                        color: '#7d89ac'
+                                    }
+                                }}
+                                onClick={() => {
+                                    window.location.href = '/admin/content/pages';
+                                }}
+                            >
+                                <Typography component="div" sx={{ marginLeft: '20px' }}><ul style={{ listStyleType: 'disc' }}><li style={{ paddingLeft: '10px' }}>{`Oldalak`}</li></ul></Typography>
+                            </Grid>
+                            <Grid item
+                                sx={{
+                                    borderBottom: '1px solid #22252e',
+                                    width: '100%', // to ensure full width border line
+                                    display: 'flex',
+                                    margin: 0,
+                                    alignItems: 'center',
+                                    justifyContent: 'flex-start',
+                                    padding: '0px 10px 15px 50px',
+                                    cursor: 'pointer',
+                                    backgroundColor: '#22252e',
+                                    color: activePath.includes('/tags') ? '#7d89ac' : '',
+                                    '&:hover': {
+                                        color: '#7d89ac'
+                                    }
+                                }}
+                                onClick={() => {
+                                    window.location.href = '/admin/content/tags';
+                                }}
+                            >
+                                <Typography component="div" sx={{ marginLeft: '20px' }}><ul style={{ listStyleType: 'disc' }}><li style={{ paddingLeft: '10px' }}>{`Tegek`}</li></ul></Typography>
+                            </Grid>
+                        </Grid>
+                    }
+
                 </Grid>
             </Grid >
         </Box >
