@@ -6,20 +6,26 @@ import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import { useContext } from 'react';
+import { PostContext } from '../../../../_app';
+
 
 const DropdownMenu = () => {
+    const { post, setPost } = useContext(PostContext);
     const [category, setCategory] = useState([]);
+
 
 
     return (
         <FormControl sx={{ color: '#fff', width: '280px' }}>
-            <InputLabel id="category">Kategóriák</InputLabel>
+
             <Select
                 sx={{ color: 'white' }}
                 multiple
                 value={category}
                 onChange={(event) => {
                     setCategory(event.target.value);
+                    setPost(prevPost => ({ ...prevPost, tags: event.target.value }));
                 }}
                 renderValue={(selected) => (
                     <Box sx={{ textAlign: 'left' }}>
@@ -30,15 +36,15 @@ const DropdownMenu = () => {
                 )}
             >
                 <MenuItem disabled value="category">
-                    <em>Kategóriák</em>
+                    <em>Cimkék</em>
                 </MenuItem>
-                <MenuItem value="Artificial Intelligence">
-                    <Checkbox checked={category.indexOf("Artificial Intelligence") > -1} />
-                    <ListItemText primary="Mesterséges intelligencia" />
+                <MenuItem value="Folt varrás">
+                    <Checkbox checked={category.indexOf("Folt varrás") > -1} />
+                    <ListItemText primary="Folt varrás" />
                 </MenuItem>
-                <MenuItem value="Business">
-                    <Checkbox checked={category.indexOf("Business") > -1} />
-                    <ListItemText primary="Üzleti" />
+                <MenuItem value="Patchwork">
+                    <Checkbox checked={category.indexOf("Patchwork") > -1} />
+                    <ListItemText primary="Patchwork" />
                 </MenuItem>
                 <MenuItem value="Cars">
                     <Checkbox checked={category.indexOf("Cars") > -1} />

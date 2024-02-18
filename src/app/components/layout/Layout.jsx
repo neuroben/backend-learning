@@ -27,7 +27,7 @@ function LandingPage({ children }) {
             }}>
                 <Grid container spacing={2}>00
                     <Grid item xs={12}>
-                        <Box sx={{ color: '#fff', textAlign: 'center' }}>
+                        <Box sx={{ color: '##1e1e1e', textAlign: 'center' }}>
                             <Typography sx={{}} variant="h1">FOLTSAROK</Typography>
                             <Typography sx={{}} variant="p">Szécsényi Anita</Typography>
                         </Box>
@@ -38,7 +38,7 @@ function LandingPage({ children }) {
                     <Grid className='content' item xs={9}>
                         {children}
                     </Grid>
-                    <Grid sx={{ color: '#fff' }} className='sideContent' item xs={3}>
+                    <Grid sx={{ color: '#1e1e1e', }} className='sideContent' item xs={3}>
                         <PostsByMonth />
 
 

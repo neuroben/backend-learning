@@ -8,6 +8,7 @@ import fonts from '@/app/utils/fonts';
 import Layout from '@/app/components/layout/Layout';
 import AdminLayout from './componenets/AdminLayout';
 import { isLogged } from '@/app/utils/isLogged';
+import PostProvider from '../admin/content/posts/+/index';
 
 function AdminPage() {
 
@@ -15,9 +16,11 @@ function AdminPage() {
 
     // Empty dependency array means this effect runs once on component mount    
     return (
+
         <AdminLayout>
             <Typography variant="h1">admin page</Typography>
         </AdminLayout>
+
     );
 }
 

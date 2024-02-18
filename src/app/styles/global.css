@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body {
-    background-image: url("gradient.png");
+    color: #1e1e1e !important;
+    background-image: url("gradient(1).png");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;

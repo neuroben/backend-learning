@@ -19,7 +19,7 @@ function BlogPostBigCard() {
 
     return (
         <Button sx={{
-            color: '#fff',
+            color: '#1e1e1e',
             width: '100%',
             backgroundColor: 'rgba(0, 0, 0, .6)',
             border: '1px solid rgba(255, 255, 255, .2)',

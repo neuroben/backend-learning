@@ -12,24 +12,43 @@ import NewPostMenu from './newPostMenu';
 import TextField from '@mui/material/TextField';
 import { FormControl } from '@mui/base';
 import MyEditor from './Editor/editor';
+import { useContext } from 'react';
+import { PostContext } from '../../../../_app';
 
 export const EditorContext = createContext(); // a context to use the button from the sidenav to save the editor content
 
 
+
 function AdminPage() {
-
-
     isLogged();
 
-    const [editorContent, setEditorContent] = useState(''); // the content of the editor
+    const { post, setPost } = useContext(PostContext);
 
     // Empty dependency array means this effect runs once on component mount    
     return (
-        <EditorContext.Provider value={{ editorContent, setEditorContent }}>
+        <>
             <AdminLayout>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-start', height: '100vh' }}>
                     <Box sx={{ margin: '30px', flexGrow: 1 }}>
-                        <TextField sx={{ width: '100%' }} label='Cím' variant='filled'></TextField>
+                        <TextField
+                            sx={{
+                                width: '100%',
+                                '& .MuiFilledInput-root': {
+                                    borderRadius: 2,
+                                    backgroundColor: 'rgba(242, 242, 242, 0.2)',
+                                    border: '1px solid #f2f2f2',
+                                    fontSize: '20px',
+                                    '& .MuiFilledInput-input': {
+                                        padding: '10px 12px', // adjust as needed
+                                    },
+                                },
+                            }}
+                            InputProps={{ disableUnderline: true }}
+                            InputLabelProps={{ shrink: true }}
+                            placeholder='A poszt címe'
+                            variant='filled'
+                            onChange={(e) => setPost(prevPost => ({ ...prevPost, title: e.target.value }))}
+                        />
                         <Box sx={{ height: 'calc(100% - 90px)', marginTop: '30px' }}>
                             <MyEditor />
                         </Box>
@@ -40,9 +59,10 @@ function AdminPage() {
                         </Box>
                     </Box>
                 </Box>
-            </AdminLayout>
-        </EditorContext.Provider>
+            </AdminLayout >
+        </>
     );
 }
 
 export default AdminPage;
+

@@ -4,6 +4,7 @@ import { Lora } from 'next/font/google';
 
 const fonts = createTheme({
     typography: {
+
         fontFamily: 'Inconsolata, Lora, sans-serif',
     },
 });

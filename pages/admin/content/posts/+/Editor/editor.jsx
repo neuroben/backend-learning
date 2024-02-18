@@ -1,18 +1,11 @@
 import React from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { useContext } from 'react';
-import { EditorContext } from '../index';
+import { PostContext } from '../../../../../_app';
 
 function MyEditor() {
 
-
-    const { setEditorContent } = useContext(EditorContext);
-
-    const handleEditorChange = (content) => {
-        setEditorContent(content);
-    };
-
-
+    const { post, setPost } = useContext(PostContext);
 
     return (
         <Editor
@@ -29,9 +22,15 @@ function MyEditor() {
                 ],
             }}
             initialValue="Welcome to TinyMCE!"
-            onEditorChange={handleEditorChange}
+            onEditorChange={(content, editor) => {
+                setPost(prevPost => ({ ...prevPost, content: content }));
+                console.log(post);
+            }}
+
+
         />
     );
 }
 
 export default MyEditor;
+

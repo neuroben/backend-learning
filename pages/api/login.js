@@ -19,7 +19,7 @@ export default async function login(req, res) {
             else {
                 const user = query.rows[0];
                 if (await argon2.verify(user.password, credentials.password)) {
-                    const token = jwt.sign({ id: user.id }, process.env.NEXT_PUBLIC_JWT_SECRET, {
+                    const token = jwt.sign({ id: user.id, username: user.username }, process.env.NEXT_PUBLIC_JWT_SECRET, {
                         expiresIn: '1d'
                     });
 
