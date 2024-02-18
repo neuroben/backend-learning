@@ -16,7 +16,7 @@ function AdminLayout({ children }) {
 
     return (
         <ThemeProvider theme={fonts}>
-            <Box sx={{ display: 'flex', position: 'fixed', width: '100%', height: '100%', overflow: 'auto' }}>
+            <Box sx={{ display: 'flex', position: 'fixed', width: '100%', height: '100%', overflow: 'hidden' }}>
                 <Box sx={{ width: '220px', boxSizing: 'border-box' }}>
                     <AdminMenu />
                 </Box>

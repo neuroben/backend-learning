@@ -8,87 +8,106 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import BookIcon from '@mui/icons-material/Book';
 import KeyIcon from '@mui/icons-material/Key';
-import adminNavTheme from './theme';
+import adminNavTheme from '../../../componenets/theme';
 import { ThemeProvider } from 'styled-components';
 import Link from 'next/link';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
+import DropdownMenu from './select';
+import { useContext } from 'react';
+import { EditorContext } from '../+/index';
 
 
 const username = 'Anita';
 const svgS = ['./logout.svg', './password.svg', './earth.svg', './profile.svg']
 
-function AdminMenu() {
+function NewPostMenu() {
     const router = useRouter();
-
     let activePath = router.pathname;
+
+    const { editorContent } = useContext(EditorContext);
+
+    const handleClick = () => {
+        // Save the editor content when the button is clicked
+        console.log('Editor content saved');
+        console.log(editorContent);
+    };
 
     return (
         <Box sx={{
             fontFamily: 'Inconsolata',
             fontSize: '20px',
-            width: '220px',
+            width: '310px',
+            maxHeight: '100vh',
             margin: 0,
-
+            overflow: 'hidden',
             backgroundColor: '#282c37',
+            color: '#000',
+            position: 'fixed',
+            right: 0,
         }}  >
             <Grid container direction='row' sx={{ marginTop: '0' }} >
                 <Grid item sx={{
-                    color: 'white',
+                    color: '#000',
                     borderBottom: '1px solid #22252e',
                     width: '100%',
                     textAlign: 'center',
                     padding: '20px',
-                }}>{`${username} ~ Foltsarok`}</Grid>
+                    direction: 'column',
+                }}>
+                    <Box sx={{ textAlign: 'center' }}>
+                        <Box>
+                            <Button sx={{
+                                width: '220px',
+                                marginBottom: '10px',
+
+                                '&:hover': {
+                                    backgroundColor: 'rgba(158, 255, 135, 0.2)',
+                                }
+                            }}
+                                variant='outlined'
+                                color='success'
+                            >
+                                Közzététel
+                            </Button>
+                        </Box>
+                        <Box>
+                            <Button sx={{
+                                width: '220px',
+                                marginBottom: '10px',
+                                '&:hover': {
+                                    backgroundColor: 'rgba(102, 156, 210, 0.2)',
+                                }
+                            }}
+                                variant='outlined'
+                                onClick={handleClick}
+                            >
+                                Mentés
+                            </Button>
+                        </Box>
+                        <Box>
+                            <Button sx={{
+                                width: '220px',
+                                marginBottom: '10px',
+
+                                '&:hover': {
+                                    backgroundColor: 'rgba(245, 150, 73, 0.2)'
+                                }
+                            }} color='warning' variant='outlined'>
+                                Mégsem
+                            </Button>
+                        </Box>
+                    </Box>
+
+                </Grid>
                 <Grid item sx={{
-                    color: 'white',
+                    color: '#000',
                     borderBottom: '1px solid #22252e',
                     width: '100%',
                     textAlign: 'center',
                     padding: '20px',
                 }}>
-                    <Grid container alignItems='center' justifyContent='center' gap={4}>
-                        <Link href='/'>
-                            <LogoutIcon sx={{
-                                width: '20px',
-                                height: '20px',
-                                color: '#868686',
-                                '&:hover': {
-                                    color: 'white'
-                                }
-                            }} />
-                        </Link>
-                        <Link href='/'>
-                            <PublicIcon sx={{
-                                width: '20px',
-                                height: '20px',
-                                color: '#868686',
-                                '&:hover': {
-                                    color: 'white'
-                                }
-                            }} />
-                        </Link>
-                        <Link href='/'>
-                            <KeyIcon sx={{
-                                width: '20px',
-                                height: '20px',
-                                color: '#868686',
-                                '&:hover': {
-                                    color: 'white'
-                                }
-                            }} />
-                        </Link>
-                        <Link href='/'>
-                            <AccountCircleIcon sx={{
-                                width: '20px',
-                                height: '20px',
-                                color: '#868686',
-                                '&:hover': {
-                                    color: 'white'
-                                }
-                            }} />
-                        </Link>
-                    </Grid>
+                    <DropdownMenu />
                 </Grid>
                 <Grid container
                     direction="column"
@@ -268,4 +287,4 @@ function AdminMenu() {
     )
 }
 
-export default AdminMenu;
+export default NewPostMenu;

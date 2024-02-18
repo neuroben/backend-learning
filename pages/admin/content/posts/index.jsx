@@ -22,7 +22,7 @@ function AdminPage() {
     // Empty dependency array means this effect runs once on component mount    
     return (
         <AdminLayout>
-            <Typography variant="h1">Admin Page</Typography>
+            <Typography variant="h1">Posztok</Typography>
         </AdminLayout>
     );
 }

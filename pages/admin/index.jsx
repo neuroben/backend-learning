@@ -7,27 +7,16 @@ import jasonwebtoken from 'jsonwebtoken';
 import fonts from '@/app/utils/fonts';
 import Layout from '@/app/components/layout/Layout';
 import AdminLayout from './componenets/AdminLayout';
+import { isLogged } from '@/app/utils/isLogged';
 
 function AdminPage() {
-    const router = useRouter();
 
-
-
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        const verify = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET, (err, decoded) => {
-            if (err) {
-                console.log(err);
-                router.push('/login');
-            }
-        });
-    }, []);
-
+    isLogged();
 
     // Empty dependency array means this effect runs once on component mount    
     return (
         <AdminLayout>
-            <Typography variant="h1">Admin Page</Typography>
+            <Typography variant="h1">admin page</Typography>
         </AdminLayout>
     );
 }
