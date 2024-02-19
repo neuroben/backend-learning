@@ -37,3 +37,45 @@ function MyEditor() {
 
 export default MyEditor;
 
+/*
+
+import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
+import { EditorState } from 'draft-js';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
+const Editor = dynamic(
+    () => import('react-draft-wysiwyg').then(mod => mod.Editor),
+    { ssr: false }
+);
+
+function MyEditor() {
+    const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+    const onEditorStateChange = (editorState) => {
+        setEditorState(editorState);
+    };
+
+    return (
+        <div style={{ padding: '5px', border: '1px solid black' }}>
+            <Editor
+                editorState={editorState}
+                wrapperClassName="wrapper"
+                editorClassName="editor"
+                onEditorStateChange={onEditorStateChange}
+            />
+            <style jsx>{`
+        .editor {
+          background-color: white;
+          min-height: 200px;
+          resize: both;
+          overflow: auto;
+        }
+      `}</style>
+        </div>
+    );
+}
+
+export default MyEditor;
+
+*/
