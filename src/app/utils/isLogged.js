@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import jwt from 'jsonwebtoken';
 
+// ha átadom ezt a funkció a kliens oldali kódnak akkor a tokenem
+// látható lesz a böngésző konzolban, ezért nem adom át
+// szóval ezt a funkciót át kell írni úgy, hogy a token ne legyen látható
 
 export function isLogged() {
     const router = useRouter();
@@ -13,5 +16,5 @@ export function isLogged() {
                 router.push('/login');
             }
         });
-    }, []);
+    }, [router]);
 }

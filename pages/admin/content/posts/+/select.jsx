@@ -22,7 +22,7 @@ const DropdownMenu = () => {
             <Select
                 sx={{ color: 'white' }}
                 multiple
-                value={category}
+                value={post.tags}
                 onChange={(event) => {
                     setCategory(event.target.value);
                     setPost(prevPost => ({ ...prevPost, tags: event.target.value }));

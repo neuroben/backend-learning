@@ -16,38 +16,40 @@ const svgS = ['./logout.svg', './password.svg', './earth.svg', './profile.svg']
 
 function NewPostMenu() {
     const router = useRouter();
-    let activePath = router.pathname;
-    const { post, setPost } = useContext(PostContext);
-
-
-    // creating object to save post
+    const { post } = useContext(PostContext);
 
     const handleSave = async () => {
-        // Save the editor content when the button is clicked
-        // itt kell majd elküldenünk a posztot az adatbázisba
-        // illetve átirányítani a /+-ról az adott poszt editor nézetére
-        // előnézet gomb (ez mentsen is és utánna átirányítson az adott poszt editor nézetére)
-        console.log(post);
+        // Ebben a funkcióban kezeljük a mentést. A post obijektum a PostContext-ből jön
+        // A post object a következő tulajdonságokkal rendelkezik:
+        // id: string - a bejegyzés azonosítója
+        // slug: string - a bejegyzés egyedi url-je
+        // title: string - a bejegyzés címe
+        // created_on: string - a bejegyzés létrehozásának dátuma
+        // published_on: string - a bejegyzés közzétételének dátuma
+        // created_by: string - a bejegyzés szerzőjének azonosítója
+        // content: string - a bejegyzés tartalma
+        // context: string - a bejegyzés tartalmának egy része, amit a bejegyzés előnézetében használunk
+        // tags: string[] - a bejegyzés címkéi
 
-        // generating slug
-        const date = new Date();
+
+        // Ez a slug generálás amit késöbb fogok megvalósítani
+        /*const date = new Date();
         const dateString = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 
         if (post.slug === '') {
             post.slug = `${post.title.replace(/\s+/g, '-').toLowerCase()}-${dateString}`;
         } else {
             post.slug = `${post.slug.replace(/\s+/g, '-').toLowerCase()}-${dateString}`;
-        }
+        }*/
 
-        // generating id
+        // Létrehozom a poszt egyedi UUID-jét
         post.id = uuidv4();
 
-        // generating created_on --- i'll do that on the server side
-
-        // generating created_by
+        // itt kérem el tokenből a user id-jét amit a poszt készítőjeként használok
         const token = localStorage.getItem('token');
-        post.created_by = jwtDecode(token).username;
-        // generating context
+        post.created_by = jwtDecode(token).id;
+
+        // itt generálom a bejegyzés előnézetét
         const decodedContent = he.decode(post.content);
         const parser = new DOMParser();
         const doc = parser.parseFromString(decodedContent, 'text/html');
@@ -55,39 +57,37 @@ function NewPostMenu() {
         let draft = '';
         for (const node of doc.body.childNodes) {
             if (node.nodeType === Node.TEXT_NODE) {
-                draft += node.textContent;
+                draft += node.textContent.replace(/\n/g, '');
             } else if (node.nodeType === Node.ELEMENT_NODE && !/^h[1-6]$/.test(node.nodeName.toLowerCase()) && node.nodeName.toLowerCase() !== 'img' && node.nodeName.toLowerCase() !== 'a') {
-                draft += node.textContent;
+                draft += node.textContent.replace(/\n/g, '');
             }
-
             if (draft.length > 550) {
                 draft = draft.slice(0, 547) + '...';
                 break;
             }
         }
         post.context = draft;
-        // generating tags
-        // generating published_on
-        // generating content
-        // generating tags
 
 
+        // itt küldök a szervernek egy POST kérést a poszt mentésére
+        async function savePost() {
+            const response = await fetch('/api/savePost', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(post),
+            });
+            const responseData = await response.json();
+            console.log(responseData);
+        }
 
+        savePost();
 
+        // a felhasználót átirányítom a poszt szerkesztőjére
+        router.push(`/admin/content/posts/${post.id}`);
 
-        const response = await fetch('/api/posts', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            },
-            body: JSON.stringify(post),
-
-        });
-
-
-        console.log('Editor content saved');
-        console.log(post.title);
     };
 
 
@@ -192,7 +192,7 @@ function NewPostMenu() {
                     padding: '10px 10px'
                 }}>
                     <Typography sx={{ color: '#fff', marginBottom: '10px' }}>{`Egyedi URL`}</Typography>
-                    <TextField sx={{ width: '280px' }}></TextField>
+                    <TextField value='Ez a funkció nincs implementálva' sx={{ width: '280px', color: '#fff' }}></TextField>
                 </Grid>
                 <Grid container
                     direction="column"
