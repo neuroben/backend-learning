@@ -1,81 +1,72 @@
-import React from 'react';
-import { Editor } from '@tinymce/tinymce-react';
-import { useContext } from 'react';
-import { PostContext } from '../../../../../_app';
-
-function MyEditor() {
-
-    const { post, setPost } = useContext(PostContext);
-
-    return (
-        <Editor
-            apiKey='wyyobeyiysoez1w1u34x4r7n7vq7ggeqmlaesrv5vfix33dq'
-            value={post.content}
-            init={{
-                height: '100%',
-                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tinycomments tableofcontents footnotes autocorrect typography inlinecss',
-                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | checklist numlist bullist indent outdent |',
-                tinycomments_mode: 'embedded',
-                tinycomments_author: 'Author name',
-                placeholder: "Írj valami csodásat :)",
-                mergetags_list: [
-                    { value: 'First.Name', title: 'First Name' },
-                    { value: 'Email', title: 'Email' },
-                ],
-            }}
-            // a tinymce-nek van saját függvénye ami a .getcontent() és a .setcontent() függvényeket használja
-            // a késöbbiekben érdemes lenne ezeket használni a post.content helyett
-            onEditorChange={(content, editor) => {
-                setPost(prevPost => ({ ...prevPost, content: content }));
-                console.log(post);
-            }}
-
-
-        />
-    );
-}
-
-export default MyEditor;
-
-/*
 
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
-import { EditorState } from 'draft-js';
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import './quill.snow.css'; // Import Quill styles
 
-const Editor = dynamic(
-    () => import('react-draft-wysiwyg').then(mod => mod.Editor),
-    { ssr: false }
-);
+import { Box } from '@mui/system';
 
-function MyEditor() {
-    const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
-    const onEditorStateChange = (editorState) => {
-        setEditorState(editorState);
+const QuillEditor = dynamic(() => import('react-quill'), { ssr: false });
+
+
+export default function Editor() {
+    const [content, setContent] = useState('');
+
+
+    const quillModules = {
+        toolbar: [
+            [{ header: [1, 2, 3, false] }],
+            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            ['link', 'image'],
+            [{ align: [] }],
+            [{ color: [] }],
+            ['code-block'],
+            ['clean'],
+        ],
     };
 
+
+    const quillFormats = [
+        'header',
+        'bold',
+        'italic',
+        'underline',
+        'strike',
+        'blockquote',
+        'list',
+        'bullet',
+        'link',
+        'image',
+        'align',
+        'color',
+        'code-block',
+    ];
+
+
+    const handleEditorChange = (newContent) => {
+        setContent(newContent);
+    };
+
+
     return (
-        <div style={{ padding: '5px', border: '1px solid black' }}>
-            <Editor
-                editorState={editorState}
-                wrapperClassName="wrapper"
-                editorClassName="editor"
-                onEditorStateChange={onEditorStateChange}
+
+        <Box>
+            <QuillEditor
+                value={content}
+                onChange={handleEditorChange}
+                modules={quillModules}
+                formats={quillFormats}
+                style={{
+                    backgroundColor: '#fff',
+                    width: '100%',
+                    height: '100%',
+
+                }}
             />
-            <style jsx>{`
-        .editor {
-          background-color: white;
-          min-height: 200px;
-          resize: both;
-          overflow: auto;
-        }
-      `}</style>
-        </div>
+        </Box>
+
     );
 }
 
-export default MyEditor;
 
-*/
